@@ -125,3 +125,8 @@ dist/
 .coverage
 htmlcov/
 .coverage.*
+
+# User-specific application configuration
+src/offline_video_studio/core/config/user.toml
+# User-specific application configuration
+src/offline_video_studio/core/config/user.toml

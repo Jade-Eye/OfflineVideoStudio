@@ -1,0 +1,33 @@
+# ============================================================
+# Offline AI Video Studio
+# Default Application Configuration
+#
+# Author : Mohit Singh
+# ============================================================
+
+[application]
+name = "Offline AI Video Studio"
+version = "0.1.0"
+environment = "development"
+
+[video]
+max_width = 1920
+max_height = 1080
+default_width = 1920
+default_height = 1080
+default_fps = 24
+
+[storage]
+projects_directory = ""
+models_directory = ""
+datasets_directory = ""
+cache_directory = ""
+
+[ui]
+theme = "dark"
+language = "en"
+
+[hardware]
+gpu_enabled = true
+cpu_enabled = true
+max_gpu_memory_percent = 90
