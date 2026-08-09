@@ -1,0 +1,127 @@
+# ============================================================
+# Offline AI Video Studio
+# Author : Mohit Singh And Abhishek Gupta
+# ============================================================
+
+# ------------------------------------------------------------
+# Python
+# ------------------------------------------------------------
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# ------------------------------------------------------------
+# Virtual Environment
+# ------------------------------------------------------------
+
+.venv/
+venv/
+env/
+
+# ------------------------------------------------------------
+# Environment / Secrets
+# ------------------------------------------------------------
+
+.env
+.env.*
+!.env.example
+
+# ------------------------------------------------------------
+# IDE
+# ------------------------------------------------------------
+
+.vscode/
+.idea/
+*.iml
+
+# ------------------------------------------------------------
+# OS
+# ------------------------------------------------------------
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ------------------------------------------------------------
+# Logs
+# ------------------------------------------------------------
+
+logs/*
+!logs/.gitkeep
+
+# ------------------------------------------------------------
+# Cache
+# ------------------------------------------------------------
+
+cache/*
+!cache/.gitkeep
+
+# ------------------------------------------------------------
+# Generated media
+# ------------------------------------------------------------
+
+projects/*
+!projects/.gitkeep
+
+# ------------------------------------------------------------
+# AI model files
+# Large model files should NOT normally be committed to Git.
+# ------------------------------------------------------------
+
+models/base/*
+models/adapters/*
+models/embeddings/*
+models/voices/*
+models/experimental/*
+models/stable/*
+
+!models/base/.gitkeep
+!models/adapters/.gitkeep
+!models/embeddings/.gitkeep
+!models/voices/.gitkeep
+!models/experimental/.gitkeep
+!models/stable/.gitkeep
+
+# ------------------------------------------------------------
+# Dataset files
+# ------------------------------------------------------------
+
+datasets/raw/*
+datasets/curated/*
+datasets/training/*
+datasets/validation/*
+datasets/evaluation/*
+datasets/rejected/*
+
+!datasets/raw/.gitkeep
+!datasets/curated/.gitkeep
+!datasets/training/.gitkeep
+!datasets/validation/.gitkeep
+!datasets/evaluation/.gitkeep
+!datasets/rejected/.gitkeep
+
+# ------------------------------------------------------------
+# Generated experiment outputs
+# ------------------------------------------------------------
+
+experiments/**/outputs/
+experiments/**/checkpoints/
+
+# ------------------------------------------------------------
+# Build / distribution
+# ------------------------------------------------------------
+
+build/
+dist/
+*.egg-info/
+
+# ------------------------------------------------------------
+# Test / coverage
+# ------------------------------------------------------------
+
+.pytest_cache/
+.coverage
+htmlcov/
+.coverage.*
