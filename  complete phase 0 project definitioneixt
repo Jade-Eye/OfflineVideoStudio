@@ -1,0 +1,331 @@
+warning: in the working copy of 'docs/AIArchitecture.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/CurrentStatus.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/DatabaseArchitecture.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/DevelopmentRoadmap.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/HardwareStrategy.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/MasterArchitecture.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/ModelRegistry.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/ProductionPipeline.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/ProjectStructure.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/Scope.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/TestingStrategy.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/TrainingArchitecture.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/UIArchitecture.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/decisions/ArchitectureDecisions.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/phases/Phase00_ProjectStructure.md', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/docs/AIArchitecture.md b/docs/AIArchitecture.md[m
+[1mindex e69de29..274b720 100644[m
+[1m--- a/docs/AIArchitecture.md[m
+[1m+++ b/docs/AIArchitecture.md[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m# AI Architecture[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mAI is capability-oriented. Production asks for capabilities such as image generation, character reference, speech synthesis, vision or embeddings. The orchestrator selects a local model through an adapter.[m
+[32m+[m
+[32m+[m[32m```text[m
+[32m+[m[32mApplication -> Capability -> AI Orchestrator -> Adapter -> Local Model[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mCapability areas: LLM, vision, image, video, TTS, STT, music/SFX and embeddings.[m
+[32m+[m
+[32m+[m[32mProjects reference explicit model versions. Training creates new versions; existing projects retain their approved snapshots.[m
+[32m+[m
+[32m+[m[32mThe current ~8 GB VRAM target requires model loading/unloading, resource checks, caching, quantization/adapters where appropriate and careful scheduling.[m
+[1mdiff --git a/docs/CurrentStatus.md b/docs/CurrentStatus.md[m
+[1mindex e69de29..5b9a2d8 100644[m
+[1m--- a/docs/CurrentStatus.md[m
+[1m+++ b/docs/CurrentStatus.md[m
+[36m@@ -0,0 +1,21 @@[m
+[32m+[m[32m# Current Status[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32m**Date:** August 9, 2026[m
+[32m+[m
+[32m+[m[32m## Phase 0[m
+[32m+[m[32m- 0A Project Structure — ACCEPTED[m
+[32m+[m[32m- 0B Environment Verification — ACCEPTED[m
+[32m+[m[32m- 0C Baseline Architecture — ACCEPTED[m
+[32m+[m[32m- 0D Documentation — IN PROGRESS[m
+[32m+[m[32m- 0E Final Phase 0 Acceptance — PENDING[m
+[32m+[m
+[32m+[m[32m## Environment[m
+[32m+[m[32mPython 3.11.15; Windows 10 build 26200; project `.venv`; Git 2.54.0; RTX 5060 Laptop GPU; approximately 8 GB VRAM; NVIDIA driver 610.47.[m
+[32m+[m
+[32m+[m[32m## Storage[m
+[32m+[m[32mProduction projects will be created on user-selected external storage. PostgreSQL stores metadata and references; media remains on the project filesystem.[m
+[32m+[m
+[32m+[m[32m## Git baseline[m
+[32m+[m[32m`8e3a3fe chore: initialize project structure`[m
+[1mdiff --git a/docs/DatabaseArchitecture.md b/docs/DatabaseArchitecture.md[m
+[1mindex e69de29..d3fb46f 100644[m
+[1m--- a/docs/DatabaseArchitecture.md[m
+[1m+++ b/docs/DatabaseArchitecture.md[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m# Database Architecture[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mPostgreSQL is the structured application database. SQLAlchemy will provide ORM/data-access abstraction. pgvector will provide vector storage and similarity retrieval. Alembic is deferred until the database foundation phase.[m
+[32m+[m
+[32m+[m[32mPostgreSQL stores projects, stories, characters, scenes, shots, assets, timelines, model registry data, datasets, training runs, settings and embeddings.[m
+[32m+[m
+[32m+[m[32mThe filesystem stores images, audio, video, documents, datasets, previews, renders and exports.[m
+[32m+[m
+[32m+[m[32mAsset records should use project-relative paths, for example `generated/images/scene_012/shot_004.png`, rather than hard-coded absolute paths.[m
+[32m+[m
+[32m+[m[32mpgvector is a memory/retrieval mechanism, not a replacement for neural network training.[m
+[32m+[m
+[32m+[m[32mTraining flow: production data -> approval -> training candidate -> versioned dataset -> training -> evaluation -> model registry.[m
+[1mdiff --git a/docs/DevelopmentRoadmap.md b/docs/DevelopmentRoadmap.md[m
+[1mindex e69de29..37f0d08 100644[m
+[1m--- a/docs/DevelopmentRoadmap.md[m
+[1m+++ b/docs/DevelopmentRoadmap.md[m
+[36m@@ -0,0 +1,28 @@[m
+[32m+[m[32m# Development Roadmap[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mDevelopment is phase-gated. Calendar estimates are planning targets; acceptance criteria determine completion.[m
+[32m+[m
+[32m+[m[32m1. Architecture/project definition[m
+[32m+[m[32m2. Application foundation[m
+[32m+[m[32m3. Project manager/filesystem[m
+[32m+[m[32m4. Database/domain model[m
+[32m+[m[32m5. Knowledge Studio[m
+[32m+[m[32m6. Story/plot engine[m
+[32m+[m[32m7. Character Studio[m
+[32m+[m[32m8. Image production[m
+[32m+[m[32m9. Audio Studio[m
+[32m+[m[32m10. Sequencer/preview[m
+[32m+[m[32m11. Video generation/rendering[m
+[32m+[m[32m12. Training Studio[m
+[32m+[m[32m13. Model registry/evaluation[m
+[32m+[m[32m14. Controlled continuous learning[m
+[32m+[m[32m15. Multimodal orchestration[m
+[32m+[m[32m16. Continuity/validation[m
+[32m+[m[32m17. Optimization/reliability[m
+[32m+[m[32m18. UI polish[m
+[32m+[m[32m19. Full-system testing[m
+[32m+[m[32m20. Windows packaging/release[m
+[32m+[m
+[32m+[m[32mNew ideas are discussed first and classified as current phase, architectural correction, future feature, experiment or rejected.[m
+[1mdiff --git a/docs/HardwareStrategy.md b/docs/HardwareStrategy.md[m
+[1mindex e69de29..f303544 100644[m
+[1m--- a/docs/HardwareStrategy.md[m
+[1m+++ b/docs/HardwareStrategy.md[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32m# Hardware Strategy[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mCurrent baseline: RTX 5060 Laptop GPU, approximately 8 GB VRAM, NVIDIA driver 610.47, Windows WDDM.[m
+[32m+[m
+[32m+[m[32mRequired mechanisms: model load/unload, resource checks, CPU/GPU selection, caching, safe batching, quantization where supported, adapter/LoRA customization, checkpointing and resume.[m
+[32m+[m
+[32m+[m[32mInternal SSD: application, Python environment, PostgreSQL and active cache. External HDD: production projects, large media, datasets and archives. Storage locations must be configurable.[m
+[1mdiff --git a/docs/MasterArchitecture.md b/docs/MasterArchitecture.md[m
+[1mindex e69de29..af5d1d4 100644[m
+[1m--- a/docs/MasterArchitecture.md[m
+[1m+++ b/docs/MasterArchitecture.md[m
+[36m@@ -0,0 +1,30 @@[m
+[32m+[m[32m# Offline AI Video Production Studio — Master Architecture[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32m## Vision[m
+[32m+[m[32mA private, single-user, fully offline, open-source Windows desktop application for anime and realistic video production, using image-first scene generation, local multimodal AI, audio, sequencing, preview and final rendering up to 1080p.[m
+[32m+[m
+[32m+[m[32m## Principles[m
+[32m+[m[32m- Offline-first; no cloud dependency during normal operation.[m
+[32m+[m[32m- Single local user.[m
+[32m+[m[32m- Windows-only target.[m
+[32m+[m[32m- Python 3.11.15.[m
+[32m+[m[32m- PySide6 desktop UI.[m
+[32m+[m[32m- PostgreSQL + pgvector.[m
+[32m+[m[32m- Large media stays on the project filesystem.[m
+[32m+[m[32m- Projects live on user-selected external storage.[m
+[32m+[m[32m- Production and training are isolated.[m
+[32m+[m[32m- Model versions are explicit and reproducible.[m
+[32m+[m[32m- New ideas may evolve the architecture through review.[m
+[32m+[m
+[32m+[m[32m## Layers[m
+[32m+[m[32mUI -> Application Services -> Domain -> AI Orchestrator / Infrastructure.[m
+[32m+[m
+[32m+[m[32mMajor domains: projects, stories, characters, scenes, shots, assets, production, knowledge, training, continuity, models and hardware.[m
+[32m+[m
+[32m+[m[32m## AI boundary[m
+[32m+[m[32mApplication code requests capabilities through an AI orchestrator and model adapters rather than hard-coding model implementations.[m
+[32m+[m
+[32m+[m[32m## Storage boundary[m
+[32m+[m[32mPostgreSQL stores metadata, relationships, production state, model registry records, training records and embeddings. Project files store images, audio, video, documents, datasets, previews and exports.[m
+[1mdiff --git a/docs/ModelRegistry.md b/docs/ModelRegistry.md[m
+[1mindex e69de29..9c9b773 100644[m
+[1m--- a/docs/ModelRegistry.md[m
+[1m+++ b/docs/ModelRegistry.md[m
+[36m@@ -0,0 +1,11 @@[m
+[32m+[m[32m# Model Registry[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mTracks local models, versions, adapters, capabilities, runtime requirements and evaluation results.[m
+[32m+[m
+[32m+[m[32mStates: Experimental, Evaluating, Approved, Stable, Deprecated, Rejected.[m
+[32m+[m
+[32m+[m[32mProduction projects record the exact model versions used for approved content. A newly trained model never silently replaces a production model.[m
+[32m+[m
+[32m+[m[32mGeneration records should eventually capture model version, adapter, prompt/template version, seed where supported, settings and reference asset IDs.[m
+[1mdiff --git a/docs/ProductionPipeline.md b/docs/ProductionPipeline.md[m
+[1mindex e69de29..e760568 100644[m
+[1m--- a/docs/ProductionPipeline.md[m
+[1m+++ b/docs/ProductionPipeline.md[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32m# Production Pipeline[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mThe system is image-first:[m
+[32m+[m
+[32m+[m[32m```text[m
+[32m+[m[32mProject -> Story -> Plot -> Production Blueprint -> Scene Plan -> Shot Plan -> Scene Images -> Review -> Audio -> Sequencer -> Preview -> Continuity Validation -> Video/Assembly -> Final 1080p Render[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mProject types include single video, short film, movie, series and episodes. The user specifies target duration; the system estimates production segments and the user can edit them.[m
+[32m+[m
+[32m+[m[32mMaximum output resolution: 1920x1080.[m
+[1mdiff --git a/docs/ProjectStructure.md b/docs/ProjectStructure.md[m
+[1mindex e69de29..ea6f41d 100644[m
+[1m--- a/docs/ProjectStructure.md[m
+[1m+++ b/docs/ProjectStructure.md[m
+[36m@@ -0,0 +1,30 @@[m
+[32m+[m[32m# Project Structure[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32m## Repository[m
+[32m+[m
+[32m+[m[32m```text[m
+[32m+[m[32mOfflineVideoStudio/[m
+[32m+[m[32m├── docs/[m
+[32m+[m[32m├── src/offline_video_studio/[m
+[32m+[m[32m├── projects/[m
+[32m+[m[32m├── models/[m
+[32m+[m[32m├── datasets/[m
+[32m+[m[32m├── cache/[m
+[32m+[m[32m├── tests/[m
+[32m+[m[32m├── scripts/[m
+[32m+[m[32m├── experiments/[m
+[32m+[m[32m├── logs/[m
+[32m+[m[32m└── installer/[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m## Source modules[m
+[32m+[m
+[32m+[m[32m```text[m
+[32m+[m[32mapp/ core/ database/ domain/ studios/ ai/ production/ training/ continuity/ media/ hardware/ ui/[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m`domain` describes system concepts; `studios` contains user workspaces; `ai` contains AI integration; `production` contains the filmmaking pipeline; `training` contains learning workflows; `continuity` protects consistency; `ui` contains presentation.[m
+[32m+[m
+[32m+[m[32mAlembic is intentionally deferred until the database foundation phase.[m
+[1mdiff --git a/docs/Scope.md b/docs/Scope.md[m
+[1mindex e69de29..1fafceb 100644[m
+[1m--- a/docs/Scope.md[m
+[1m+++ b/docs/Scope.md[m
+[36m@@ -0,0 +1,7 @@[m
+[32m+[m[32m# Project Scope[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mCore scope: fully offline single-user Windows desktop app; Python 3.11.15; modern/exotic UI; anime and realistic production; user photo or AI avatar characters; story/plot/chapter/scene/shot management; duration-based planning; image-first production; multilingual architecture; TTS/STT/audio; sequencer and preview; final 1080p rendering; PostgreSQL + pgvector; Knowledge Studio; Training Studio; model registry; continuity validation; CPU/GPU-aware execution; Windows installer.[m
+[32m+[m
+[32m+[m[32mLanguage strategy: English and Hindi first, then major Indian regional languages, Asian languages and other languages supported by verified local models. A language shown in the UI is not considered supported until the required local capability is verified.[m
+[1mdiff --git a/docs/TestingStrategy.md b/docs/TestingStrategy.md[m
+[1mindex e69de29..82f7c2b 100644[m
+[1m--- a/docs/TestingStrategy.md[m
+[1m+++ b/docs/TestingStrategy.md[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32m# Testing Strategy[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mTesting levels: unit, integration, system, AI evaluation, production workflow, performance, offline and recovery testing.[m
+[32m+[m
+[32m+[m[32mImportant AI tests include character identity consistency, voice-to-character consistency, story sequence preservation, scene continuity, model reproducibility, retrieval quality, generation failure handling and resource exhaustion.[m
+[32m+[m
+[32m+[m[32mA phase is accepted only when its defined acceptance criteria pass.[m
+[1mdiff --git a/docs/TrainingArchitecture.md b/docs/TrainingArchitecture.md[m
+[1mindex e69de29..ec9a95d 100644[m
+[1m--- a/docs/TrainingArchitecture.md[m
+[1m+++ b/docs/TrainingArchitecture.md[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32m# Training Architecture[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mTraining is an independent studio. Active production model snapshots must never be silently modified by training.[m
+[32m+[m
+[32m+[m[32m```text[m
+[32m+[m[32mData -> Approval -> Candidate -> Dataset Version -> Training -> Checkpoint -> Evaluation -> Model Registry -> Promotion[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mPotential training categories include story/narrative, character identity, visual style, image generation, voice/audio and other multimodal capabilities. Document retrieval and neural training remain separate concepts.[m
+[32m+[m
+[32m+[m[32mOnly approved and curated production data becomes a training candidate; raw generated content is not automatically treated as training truth.[m
+[1mdiff --git a/docs/UIArchitecture.md b/docs/UIArchitecture.md[m
+[1mindex e69de29..4f7e00a 100644[m
+[1m--- a/docs/UIArchitecture.md[m
+[1m+++ b/docs/UIArchitecture.md[m
+[36m@@ -0,0 +1,9 @@[m
+[32m+[m[32m# UI Architecture[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32mPySide6 is the planned desktop UI framework. The goal is modern, exotic, polished and usable for long production sessions.[m
+[32m+[m
+[32m+[m[32mMain workspaces: Dashboard, Working Studio, Character Studio, Knowledge Studio, Training Studio, Model Lab, Sequencer and Settings.[m
+[32m+[m
+[32m+[m[32mUI must not directly control AI runtimes or database internals. Long-running generation, indexing, training and rendering must run without freezing the UI.[m
+[1mdiff --git a/docs/decisions/ArchitectureDecisions.md b/docs/decisions/ArchitectureDecisions.md[m
+[1mindex e69de29..715c325 100644[m
+[1m--- a/docs/decisions/ArchitectureDecisions.md[m
+[1m+++ b/docs/decisions/ArchitectureDecisions.md[m
+[36m@@ -0,0 +1,16 @@[m
+[32m+[m[32m# Architecture Decisions[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32m- ADR-001: Python 3.11.15 baseline.[m
+[32m+[m[32m- ADR-002: PySide6 desktop UI.[m
+[32m+[m[32m- ADR-003: Fully offline operation.[m
+[32m+[m[32m- ADR-004: Single local user.[m
+[32m+[m[32m- ADR-005: PostgreSQL + pgvector.[m
+[32m+[m[32m- ADR-006: User-selected external project storage.[m
+[32m+[m[32m- ADR-007: Project-relative media paths.[m
+[32m+[m[32m- ADR-008: Training isolation and model snapshots.[m
+[32m+[m[32m- ADR-009: 1920x1080 maximum output.[m
+[32m+[m[32m- ADR-010: Image-first production workflow.[m
+[32m+[m[32m- ADR-011: Capability-based AI adapters.[m
+[32m+[m[32m- ADR-012: Controlled architecture evolution.[m
+[1mdiff --git a/docs/phases/Phase00_ProjectStructure.md b/docs/phases/Phase00_ProjectStructure.md[m
+[1mindex e69de29..be16fd9 100644[m
+[1m--- a/docs/phases/Phase00_ProjectStructure.md[m
+[1m+++ b/docs/phases/Phase00_ProjectStructure.md[m
+[36m@@ -0,0 +1,15 @@[m
+[32m+[m[32m# Phase 00 — Project Structure[m
+[32m+[m
+[32m+[m[32m**Author : Mohit Singh**[m
+[32m+[m
+[32m+[m[32m0A Project Structure — ACCEPTED.[m
+[32m+[m
+[32m+[m[32m0B Environment Verification — ACCEPTED.[m
+[32m+[m
+[32m+[m[32m0C Baseline Architecture — ACCEPTED.[m
+[32m+[m
+[32m+[m[32m0D Documentation — IN PROGRESS.[m
+[32m+[m
+[32m+[m[32m0E Final Phase 0 Acceptance — PENDING.[m
+[32m+[m
+[32m+[m[32mAlembic is intentionally not included yet.[m
